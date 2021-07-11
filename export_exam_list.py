@@ -25,9 +25,10 @@ else :
     passwordsDir = sys.argv[2]
     inputFile = sys.argv[1]
 
+
 examList = csv.DictReader(open(inputFile),dialect='unix')
 examListPasswords = csv.DictWriter(open(inputFile+'.pass.csv','w'),['username','email', \
-    'fullname','password','phone','type'],dialect='excel')    
+    'fullname','password','phone','type','course1'],dialect='excel')    
 examListPasswords.writeheader()
 
 for record in examList :
@@ -44,5 +45,5 @@ for record in examList :
         pstring = '"не зарегистрирован"'
 
     tmp = {'username':record['username'],'email':record['email'],'fullname':record['fullname'], \
-        'phone':record['phone1'],'type':record['type'],'password':pstring[1:-1]}
+        'phone':record['phone1'],'type':record['type'],'password':pstring[1:-1],'course1':record['course1']}
     examListPasswords.writerow(tmp)

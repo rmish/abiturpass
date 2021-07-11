@@ -47,15 +47,15 @@ if __name__ == '__main__':
     success = 0
     failure = 0
     infile = open(sys.argv[1])
-    users = csv.DictReader(infile,delimiter=";")
+    users = csv.DictReader(infile,delimiter=",")
     for row in users:  
         #print(row['username']+" "+row['email']+" "+row['password']+" "+row["course1"])
-        if row['type'] == 'dist':
-            print(row)
-            #if mailPassword(row):
-            #    success += 1
-            #else:
-            #    failure += 1
-            #sleep(0.05)
+        if (row['type'] == 'dist') and (row['password'][0] != 'н'):
+            #print(row)
+            if mailPassword(row):
+                success += 1
+            else:
+                failure += 1
+            sleep(0.05)
     print ("Успешно "+str(success)+", ошибок "+str(failure))
     log.write(str(datetime.now())+" Отправили "+str(success)+", ошибок "+str(failure)+"\n")
