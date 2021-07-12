@@ -26,14 +26,13 @@ else :
     inputFile = sys.argv[1]
 
 
-examList = csv.DictReader(open(inputFile),dialect='unix')
+examList = csv.DictReader(open(inputFile),dialect='unix',delimiter=';')
 examListPasswords = csv.DictWriter(open(inputFile+'.pass.csv','w'),['username','email', \
-    'fullname','password','phone','type','course1'],dialect='excel')    
+    'fullname','password','phone1','group1','course1','group2','course2'],dialect='excel')    
 examListPasswords.writeheader()
 
 for record in examList :
     passString=subprocess.Popen(["grep","-r",record['username'],passwordsDir],stdout=subprocess.PIPE,encoding='utf8')
-#    print(passString.stdout.read())
     try :
          passwords=passString.stdout.read().strip().split(':',1)[1]
     except :
@@ -45,5 +44,5 @@ for record in examList :
         pstring = '"не зарегистрирован"'
 
     tmp = {'username':record['username'],'email':record['email'],'fullname':record['fullname'], \
-        'phone':record['phone1'],'type':record['type'],'password':pstring[1:-1],'course1':record['course1']}
+        'phone1':record['phone1'],'group1':record['type'],'password':pstring[1:-1],'course1':record['course1'],'course2':record['course1'],'group2':'2021_'+record['group1']}
     examListPasswords.writerow(tmp)
