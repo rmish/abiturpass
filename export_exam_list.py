@@ -19,7 +19,7 @@ if (len(sys.argv) > 3) or (len(sys.argv) == 1) :
     print('Неверное количество параметров, смотрите комментарии внутри скрипта')
     sys.exit(1)
 elif len(sys.argv) == 2 :
-    passwordsDir = '/mnt/sys/Приёмная кампания 2021/регистрация общий список/'
+    passwordsDir = '/mnt/uop/Приёмная кампания 2021/регистрация общий список/'
     inputFile = sys.argv[1]
 else :
     passwordsDir = sys.argv[2]

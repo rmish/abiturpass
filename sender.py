@@ -50,7 +50,7 @@ if __name__ == '__main__':
     users = csv.DictReader(infile,delimiter=",")
     for row in users:  
         #print(row['username']+" "+row['email']+" "+row['password']+" "+row["course1"])
-        if (row['type'] == 'dist') and (row['password'][0] != 'н'):
+        if (row['group1'] == 'dist') and (row['password'][0] != 'н'):
             #print(row)
             if mailPassword(row):
                 success += 1
