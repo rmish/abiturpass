@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     success = 0
     failure = 0
-    infile = open(sys.argv[1])
+    infile = open(sys.argv[1],encoding='utf-8')
     users = csv.DictReader(infile,delimiter=",")
     for row in users:  
         #print(row['username']+" "+row['email']+" "+row['password']+" "+row["course1"])
