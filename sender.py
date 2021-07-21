@@ -15,7 +15,7 @@ from datetime import datetime
 import csv
 import sys
 
-log = open('sender.log','a')
+log = open('sender.log','a',encoding='utf-8')
 
 def mailPassword(auser):
     sender = "bot@" + str(gethostbyaddr(gethostname())[0])
