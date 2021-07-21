@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """Объединение ведомости с общим спском паролей
 делается поиск каждого человека в ведомости в общем 
 списке и формирование нового файла ведомости с добавлением пароля
@@ -26,8 +26,8 @@ else :
     inputFile = sys.argv[1]
 
 
-examList = csv.DictReader(open(inputFile),dialect='unix',delimiter=';')
-examListPasswords = csv.DictWriter(open(inputFile+'.pass.csv','w'),['username','email', \
+examList = csv.DictReader(open(inputFile,encoding='utf-8'),dialect='unix',delimiter=';',)
+examListPasswords = csv.DictWriter(open(inputFile+'.pass.csv','w',encoding='utf-8'),['username','email', \
     'fullname','password','phone1','group1','course1','group2','course2'],dialect='excel')    
 examListPasswords.writeheader()
 
