@@ -13,6 +13,7 @@
 
 import sys
 import csv
+import os
 import subprocess
 
 if (len(sys.argv) > 3) or (len(sys.argv) == 1) :
@@ -27,22 +28,27 @@ else :
 
 
 examList = csv.DictReader(open(inputFile,encoding='utf-8'),dialect='unix',delimiter=';',)
-examListPasswords = csv.DictWriter(open(inputFile+'.pass.csv','w',encoding='utf-8'),['username','email', \
-    'fullname','password','phone1','group1','course1','group2','course2'],dialect='excel')    
+usersList = os.listdir(passwordsDir)
+examListPasswords = csv.DictWriter(open(inputFile+'.pass.csv','w',encoding='utf-8',newline=''), \
+    ['username','email','fullname','password','phone1','group1','course1','group2','course2'], \
+    dialect='excel')    
 examListPasswords.writeheader()
 
 for record in examList :
-    passString=subprocess.Popen(["grep","-r",record['username'],passwordsDir],stdout=subprocess.PIPE,encoding='utf8')
-    try :
-         passwords=passString.stdout.read().strip().split(':',1)[1]
-    except :
-        passwords='не зарегиcтрирован'
-    password=passwords.split(',')
-    try :
-        pstring=password[2]
-    except:
-        pstring = '"не зарегистрирован"'
+    passwords = []
+    for usersFile in usersList:
+        tcsv = csv.DictReader(open(passwordsDir+usersFile,encoding='utf-8'),dialect='excel')
+        for rcsv in tcsv:
+            if rcsv['username'] == record['username'] :
+                passwords.append(rcsv['password'])
+    if len(passwords) == 0 : 
+        pstring = 'не зарегиcтрирован'
+    elif len(passwords) >1 :
+        pstring = 'несколько учётных записей'
+    else :
+        pstring = passwords[0]
 
     tmp = {'username':record['username'],'email':record['email'],'fullname':record['fullname'], \
-        'phone1':record['phone1'],'group1':record['type'],'password':pstring[1:-1],'course1':record['course1'],'course2':record['course1'],'group2':'2021_'+record['group1']}
+        'phone1':record['phone1'],'group1':record['type'],'password':pstring, \
+        'course1':record['course1'],'course2':record['course1'],'group2':'2021_'+record['group1']}
     examListPasswords.writerow(tmp)
