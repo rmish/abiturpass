@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 # -*- coding : utf-8 -*-
 
-#
-# Рассылка сообщений о регистрации на экзамен. Первый параметр - csv 
-# файл с данными (email,username,course1,password), второй - шаблон
-#
+'''Рассылка сообщений о регистрации на экзамен. Первый параметр - csv 
+ файл с данными (email,username,course1,password), второй - шаблон
+ Оба файла в кодировке utf-8 без BOM (MS Excel требует его наличия, 
+ Libre office может обойтись)
+'''
 
 from string import Template
 import smtplib
